@@ -8,19 +8,19 @@ public class Timer : MonoBehaviour
 {
     public float timer = 0;   
     public TextMeshProUGUI texto;
-    public Colisiones colison;
-    public MetaScript meta;
+    public Triggers Start, Stop;
     public GameObject Object;
     // Update is called once per frame
     void Update()
     {
 
-         if (colison.Timer==true){
+         if (Start.Timer==true){
          
             Debug.Log("Funcionó");
             Object.SetActive(true);
 
-            if (!meta.TimerStop) {  
+            if (!Stop.TimerStop) {
+                Debug.Log("Timer start");
                 timer += Time.deltaTime;
                 texto.text = "" + timer.ToString("f1"); 
             }

@@ -20,6 +20,8 @@ public class Car_Movement : MonoBehaviour
 
     public float steerAngl;
 
+    public bool motordisable = false;
+
     private Rigidbody rb;
 
     float h, v;
@@ -74,6 +76,24 @@ public class Car_Movement : MonoBehaviour
         t.position = pos;
         t.rotation = rot;
 
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        // Verifica si el objeto que colisionó es el jugador.
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            if (motordisable)
+            {
+                StartCoroutine(HandleMotorDisable());
+            }
+        }
+    }
+    private IEnumerator HandleMotorDisable()
+    {
+        _motorForce = 0f; // Desactiva el motor
+        yield return new WaitForSeconds(5f); // Espera 5 segundos
+        _motorForce = 1500f; // Restaura el valor del motor
+        motordisable = false; // Rehabilita la funcionalidad del motor
     }
 
 
