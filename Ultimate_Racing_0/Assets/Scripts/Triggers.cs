@@ -14,7 +14,9 @@ public class Triggers : MonoBehaviour
     public bool TimerStop = false;
 
     public bool Timer = false;
-    public enum TriggerType { Type1, Type2, Meta, Salida }
+
+    public Vector3 collisionPosition;
+    public enum TriggerType { Type1, Type2, Meta, Salida}
     public TriggerType triggerType;
     // Start is called before the first frame update
     private void OnTriggerEnter(Collider other)
@@ -25,6 +27,7 @@ public class Triggers : MonoBehaviour
         if (other.tag == "Player" && !PlayerNear) {
 
             Debug.Log("Jugador cerca");
+            
             switch (triggerType)
             {
                 case TriggerType.Type1:               
@@ -39,6 +42,7 @@ public class Triggers : MonoBehaviour
                 case TriggerType.Salida:
                     Salida();
                     break;
+                
             }
              
         }
@@ -66,5 +70,5 @@ public class Triggers : MonoBehaviour
     {       
         Timer = true;
     }
-
+    
 }
