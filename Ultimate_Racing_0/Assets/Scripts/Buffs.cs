@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Buffs : MonoBehaviour
@@ -11,7 +12,8 @@ public class Buffs : MonoBehaviour
     //Variables
     public GameObject Secreto1;
     public Timer Time;
-
+    //Audio
+    public AudioSource collision;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -77,6 +79,7 @@ public class Buffs : MonoBehaviour
     }
     private void Default_()
     {
+        collision.Play();
         Destroy(gameObject, 3f);
     }
 }

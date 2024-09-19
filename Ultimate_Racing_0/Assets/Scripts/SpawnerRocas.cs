@@ -26,7 +26,7 @@ public class SpawnerRocas : MonoBehaviour
             isSpawning = false;
             near.PlayerNear = false;
             CancelInvoke(nameof(SpawnEnemy));
-            Debug.Log("pito");
+            
         }    
     }
 

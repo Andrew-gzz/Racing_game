@@ -7,9 +7,7 @@ public class Car_Movement : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public WheelCollider front_driverCol, front_passCol;
-
-    public WheelCollider back_driverCol, back_passCol;
+    public WheelCollider frontLeft, frontRight, backLeft, backRight;
 
     public Transform forntDRiver, forntPass;
 
@@ -31,10 +29,11 @@ public class Car_Movement : MonoBehaviour
 
     // Tiempo que ha estado atascado
     private float stuckTime = 0f;
-    private float maxStuckTime = 3f; // Si el coche está atascado por más de 3 segundos
+    private float maxStuckTime = 4f; // Si el coche está atascado por más de 3 segundos
     
-    float h, v;  
+    float h, v;
     
+
     void Start()
     {
         // Obtén el Rigidbody del carro
@@ -53,11 +52,12 @@ public class Car_Movement : MonoBehaviour
         Inputs();
         Drive();
         SteerCar();
-        UpdateWheelPos(front_driverCol,  forntDRiver);
-        UpdateWheelPos(front_passCol, forntPass);
-        UpdateWheelPos(back_driverCol, backDRiver);
-        UpdateWheelPos(back_passCol, backPass);
+        UpdateWheelPos(frontLeft,  forntDRiver);
+        UpdateWheelPos(frontRight, forntPass);
+        UpdateWheelPos(backLeft, backDRiver);
+        UpdateWheelPos(backRight, backPass);
         CheckIfFlippedOrStuck();
+ 
         if (Input.GetKeyDown(KeyCode.R))
         {
             RestartGame();
@@ -74,16 +74,16 @@ public class Car_Movement : MonoBehaviour
 
     void Drive()
     {
-        back_driverCol.motorTorque = v * _motorForce;
-        back_passCol.motorTorque = v * _motorForce;
+        backLeft.motorTorque = v * _motorForce;
+        backRight.motorTorque = v * _motorForce;
 
     }
     void SteerCar()
     {
         if (!Angl) { 
         steerAngl = _steerAngle * h;
-        front_driverCol.steerAngle = steerAngl;
-        front_passCol.steerAngle = steerAngl;
+        frontLeft.steerAngle = steerAngl;
+        frontRight.steerAngle = steerAngl;
         }
     }
 
@@ -171,5 +171,8 @@ public class Car_Movement : MonoBehaviour
         // Recargar la escena actual
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-
+    public float GetCurrentSpeed()
+    {      
+        return rb.velocity.magnitude; // Devuelve la magnitud de la velocidad
+    }
 }
